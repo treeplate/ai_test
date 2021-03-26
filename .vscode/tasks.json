@@ -1,9 +1,0 @@
-{
-    "version": "2.0.0",
-    "tasks": [{
-        "label": "run",
-        "command": "bash", // Could be any other shell command
-        "args": ["main.bash"],
-        "type": "shell"
-    }]
-}
