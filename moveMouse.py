@@ -4,8 +4,8 @@ click = False
 while True:
   try:
     mouse.position = (float(input("X: ")), float(input("Y: ")))
+    if click:
+      mouse.press(Button.left)
   except EOFError:
     break
-  if click:
-    mouse.press(Button.left)
   
