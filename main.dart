@@ -3,13 +3,13 @@ import 'dart:io';
 
 import 'center.dart';
 
-final RegExp inputPattern = RegExp(r'^\(([0-9]+.[0-9]+), ([0-9]+.[0-9]+)\)\n$');
+final RegExp inputPattern = RegExp(r'^\(([0-9]+.[0-9]+), ([0-9]+.[0-9]+)\)$');
 
 void main() async {
   //TODO: evolve
   try {
     List<Point> points = <Point>[];
-    await for (String line in stdin.transform(utf8.decoder)) {
+    await for (String line in stdin.transform(utf8.decoder).transform(const LineSplitter())) {
       Match? inputParts = inputPattern.matchAsPrefix(line);
       if (inputParts == null || inputParts.groupCount != 2)
         throw FormatException('Invalid input data: "$line"');
