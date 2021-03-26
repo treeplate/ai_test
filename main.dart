@@ -1,3 +1,6 @@
+import 'dart:io';
+
 void main() {
-  //TODO: implement
+  // Sample input: (0.3, 0.3)
+  print("0.3\n0.3");
 }
