@@ -6,6 +6,7 @@ import 'center.dart';
 final RegExp inputPattern = RegExp(r'^\(([0-9]+.[0-9]+), ([0-9]+.[0-9]+)\)\n$');
 
 void main() async {
+  //TODO: evolve
   try {
     List<Point> points = <Point>[];
     await for (String line in stdin.transform(utf8.decoder)) {
