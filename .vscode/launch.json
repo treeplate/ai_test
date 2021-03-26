@@ -1,10 +1,12 @@
 {
+    "version": "0.2.0",
     "configurations": [
         {
-            "name": "Run",
-            "request": "launch",
-            "preLaunchTask": "run", // The name of the task defined above
-            "type": "node"
+          "type": "dart",
+          "request": "launch",
+          "name": "launch program",
+          "preLaunchTask": "myShellCommand",
+          "program": ".vscode/placeholder.dart"
         }
-    ]   
-}
+    ]
+  }
