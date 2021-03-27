@@ -13,7 +13,10 @@ class Point {
   }
 
   @override
-  int get hashCode => x.hashCode ^ y.hashCode;
+  int get hashCode {
+    assert(false, 'This hashCode is terrible. If you are using it you should reimplement it.');
+    return x.hashCode ^ y.hashCode;
+  }
 
   @override
   String toString() => '($x, $y)';

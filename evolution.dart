@@ -20,7 +20,7 @@ class Creature {
 
   void mutate() {
     // TODO: mutate
-  } 
+  }
 
   String toString() => data.toString() + "($fitness)"; //
 }
