@@ -33,7 +33,7 @@ class _ProgramGenerator {
       //case 6: return _opMin.toDouble();
       //case 7: return _opMax.toDouble();
       case 8: _queue.add(_opInput.toDouble()); return random.nextDouble() * 10.0;
-      default: return random.nextDouble();
+      default: return random.nextDouble() * 3.0;
     }
   }
 

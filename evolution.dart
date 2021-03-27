@@ -41,7 +41,7 @@ class Creature {
       Point evaluated = data.evaluate(inputs);
       double dx = goalOutput.x - evaluated.x;
       double dy = goalOutput.y - evaluated.y;
-      fitness = max(fitness, dx * dx + dy * dy + data.countOutputs());
+      fitness = max(fitness, dx * dx + dy * dy + (data.countOutputs()*100));
     }
   }
 
@@ -53,5 +53,5 @@ class Creature {
     File(filename).writeAsStringSync(data.toRawDoubles().join(','));
   }
 
-  String toString() => "$fitness:$data";
+  String toString() => "$fitness:$data:${data.countOutputs()}";
 }
