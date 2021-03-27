@@ -28,10 +28,10 @@ class _ProgramGenerator {
       case 1: return _opSubtract.toDouble();
       case 2: return _opMultiply.toDouble();
       case 3: return _opDivide.toDouble();
-      case 4: return _opModulus.toDouble();
-      case 5: return _opRound.toDouble();
-      case 6: return _opMin.toDouble();
-      case 7: return _opMax.toDouble();
+      //case 4: return _opModulus.toDouble();
+      //case 5: return _opRound.toDouble();
+      //case 6: return _opMin.toDouble();
+      //case 7: return _opMax.toDouble();
       case 8: _queue.add(_opInput.toDouble()); return random.nextDouble() * 10.0;
       default: return random.nextDouble();
     }
@@ -57,7 +57,7 @@ class Expression {
 
   static const double _kStopEarlyProbability = 0.01;
   static const double _kContinueAnywayProbability = 0.1;
-  static const double _kSwitchModeProbability = 0.2;
+  static const double _kSwitchModeProbability = 0.02;
 
   static Expression recombine(math.Random random, Expression a, Expression b) {
     final List<double> child = <double>[];

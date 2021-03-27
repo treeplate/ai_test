@@ -1,13 +1,16 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'center.dart';
 import 'expression.dart';
 import 'point.dart';
+
+final Random r = Random();
 
 class Creature {
   Expression data;
 
-  Creature() : data = Expression.blank();
+  Creature() : data = Expression.random(r, 20);
 
   Creature.make(this.data);
   factory Creature.loadExp(String filename) {
@@ -22,21 +25,33 @@ class Creature {
 
   double? fitness;
 
-  void calcFitness(List<double> inputs, Point goalOutput) {
-    Point evaluated = data.evaluate(inputs);
-    fitness = sqrt(pow(goalOutput.x - evaluated.x, 2) +
-        pow(goalOutput.y - evaluated.y, 2));
-    ;
+  void calcFitness() {
+    fitness = 0;
+    List<List<Point>> triangles = [];
+    for (int i = 0; i < 20; i++) {
+      triangles.add([
+        Point(r.nextDouble()*1000, r.nextDouble()*1000),
+        Point(r.nextDouble()*1000, r.nextDouble()*1000),
+        Point(r.nextDouble()*1000, r.nextDouble()*1000)
+      ]);
+    }
+    for (List<Point> triangle in triangles) {
+      List<double> inputs = [triangle[0].x, triangle[0].y, triangle[1].x, triangle[1].y, triangle[2].x, triangle[2].y];
+      Point goalOutput = findCenter(triangle);
+      Point evaluated = data.evaluate(inputs);
+      fitness = max(sqrt(pow(goalOutput.x - evaluated.x, 2) +
+              pow(goalOutput.y - evaluated.y, 2)) +
+          (((data.toRawDoubles().length + 1) / 100000)*0), fitness!);
+    }
   }
 
   Creature crossover(Creature other) {
-    // TODO: crossover
-    return Creature.make(Expression.blank());
+    return Creature.make(Expression.recombine(r, data, other.data));
   }
 
   void saveExp(String filename) {
     File(filename).writeAsStringSync(data.toRawDoubles().join(','));
   }
 
-  String toString() => data.toString() + "($fitness)";
+  String toString() => "$fitness:$data";
 }
