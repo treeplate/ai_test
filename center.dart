@@ -1,8 +1,4 @@
-class Point {
-  const Point(this.x, this.y);
-  final double x;
-  final double y;
-}
+import 'point.dart';
 
 Point findCenter(List<Point> triangle) {
   //TODO: evolve
