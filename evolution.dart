@@ -23,7 +23,7 @@ class Creature {
     ));
   }
 
-  double? fitness;
+  late double fitness;
 
   void calcFitness() {
     fitness = 0;
@@ -39,9 +39,9 @@ class Creature {
       List<double> inputs = [triangle[0].x, triangle[0].y, triangle[1].x, triangle[1].y, triangle[2].x, triangle[2].y];
       Point goalOutput = findCenter(triangle);
       Point evaluated = data.evaluate(inputs);
-      fitness = max(sqrt(pow(goalOutput.x - evaluated.x, 2) +
-              pow(goalOutput.y - evaluated.y, 2)) +
-          (((data.toRawDoubles().length + 1) / 100000)*0), fitness!);
+      double dx = goalOutput.x - evaluated.x;
+      double dy = goalOutput.y - evaluated.y;
+      fitness = max(fitness, dx * dx + dy * dy + data.countOutputs());
     }
   }
 
