@@ -7,6 +7,12 @@
           "name": "launch program",
           "preLaunchTask": "myShellCommand",
           "program": ".vscode/placeholder.dart"
+        },
+        {
+          "type": "dart",
+          "request": "launch",
+          "name": "train ai",
+          "program": "train.dart"
         }
     ]
   }
