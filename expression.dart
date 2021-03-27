@@ -145,6 +145,36 @@ class Expression {
 
   List<double> toRawDoubles() => _program.toList();
 
+  int countOutputs() {
+    final _Stack<void> stack = _Stack<void>(null);
+    for (double opcode in _program) {
+      if (opcode.isNegative) {
+        switch (opcode.round()) {
+          case _opAdd: 
+          case _opSubtract: 
+          case _opMultiply: 
+          case _opDivide: 
+          case _opModulus:
+          case _opMin:
+          case _opMax:
+            stack.pop();
+            stack.pop();
+            stack.push(null);
+            break;
+          case _opRound:
+          case _opInput:
+          default:
+            stack.pop();
+            stack.push(null);
+            break;
+        }
+      } else {
+        stack.push(null);
+      }
+    }
+    return stack.length;
+  }
+
   @override
   bool operator ==(Object other) {
     if (other.runtimeType != runtimeType)
@@ -213,6 +243,8 @@ class _Stack<T> {
     return _values.removeLast();
   }
 
+  int get length => _values.length;
+  
   @override
   String toString() => _values.join(', ');
 }

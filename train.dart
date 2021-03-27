@@ -6,11 +6,11 @@ void main() {
   for (Creature creature in creatures) {
     creature.calcFitness();
   }
-  creatures.sort((Creature a, Creature b) => a.fitness!.compareTo(b.fitness!));
+  creatures.sort((Creature a, Creature b) => a.fitness.compareTo(b.fitness));
   int gens = 0;
   while (bestFitness > 0) {
-    if (creatures[0].fitness! < bestFitness) {
-      bestFitness = creatures[0].fitness!;
+    if (creatures[0].fitness < bestFitness) {
+      bestFitness = creatures[0].fitness;
       print("$gens:${creatures[0]}\n");
     }
     List<Creature> babies = [];
@@ -22,7 +22,7 @@ void main() {
       creature.calcFitness();
     }
     creatures
-        .sort((Creature a, Creature b) => a.fitness!.compareTo(b.fitness!));
+        .sort((Creature a, Creature b) => a.fitness.compareTo(b.fitness));
     creatures.length = 100;
     gens++;
   }
