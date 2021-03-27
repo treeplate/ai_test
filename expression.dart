@@ -67,7 +67,7 @@ class Expression {
     _ProgramGenerator generator = _ProgramGenerator(random);
     while ((indexA < a._program.length || indexB < b._program.length || random.nextDouble() < _kContinueAnywayProbability) && (random.nextDouble() > _kStopEarlyProbability)) {
       if (random.nextDouble() < _kSwitchModeProbability) {
-        mode = random.nextInt(6);
+        mode = random.nextInt(8);
         generator.reset();
       }
       switch (mode) {
@@ -97,6 +97,18 @@ class Expression {
           child.add(generator.getNext());
           break;
         case 5: // skip
+          indexA += 1;
+          indexB += 1;
+          break;
+        case 6: // mutate from a
+          if (indexA < a._program.length)
+            child.add(a._program[indexA] * (random.nextDouble() / 10.0 + 0.95));
+          indexA += 1;
+          indexB += 1;
+          break;
+        case 7: // mutate from b
+          if (indexB < b._program.length)
+            child.add(b._program[indexB] * (random.nextDouble() / 10.0 + 0.95));
           indexA += 1;
           indexB += 1;
           break;
