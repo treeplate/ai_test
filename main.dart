@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'center.dart';
+import 'point.dart';
 
 final RegExp inputPattern = RegExp(r'^\(([0-9]+.[0-9]+), ([0-9]+.[0-9]+)\)$');
 
