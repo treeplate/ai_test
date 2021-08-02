@@ -23,15 +23,15 @@ class _ProgramGenerator {
   double getNext() {
     if (_queue.isNotEmpty)
       return _queue.removeFirst();
-    switch (random.nextInt(30)) { // about one third of output should be opcodes
+    switch (random.nextInt(20)) { // about one third of output should be opcodes
       case 0: return _opAdd.toDouble();
       case 1: return _opSubtract.toDouble();
       case 2: return _opMultiply.toDouble();
       case 3: return _opDivide.toDouble();
-      //case 4: return _opModulus.toDouble();
-      //case 5: return _opRound.toDouble();
-      //case 6: return _opMin.toDouble();
-      //case 7: return _opMax.toDouble();
+      case 4: return _opModulus.toDouble();
+      case 5: return _opRound.toDouble();
+      case 6: return _opMin.toDouble();
+      case 7: return _opMax.toDouble();
       case 8: _queue.add(_opInput.toDouble()); return random.nextDouble() * 10.0;
       default: return random.nextDouble() * 3.0;
     }
@@ -56,8 +56,8 @@ class Expression {
   }
 
   static const double _kStopEarlyProbability = 0.01;
-  static const double _kContinueAnywayProbability = 0.1;
-  static const double _kSwitchModeProbability = 0.02;
+  static const double _kContinueAnywayProbability = 0.3;
+  static const double _kSwitchModeProbability = 0.5;
 
   static Expression recombine(math.Random random, Expression a, Expression b) {
     final List<double> child = <double>[];
@@ -67,7 +67,7 @@ class Expression {
     _ProgramGenerator generator = _ProgramGenerator(random);
     while ((indexA < a._program.length || indexB < b._program.length || random.nextDouble() < _kContinueAnywayProbability) && (random.nextDouble() > _kStopEarlyProbability)) {
       if (random.nextDouble() < _kSwitchModeProbability) {
-        mode = random.nextInt(8);
+        mode = random.nextInt(9);
         generator.reset();
       }
       switch (mode) {
@@ -93,7 +93,18 @@ class Expression {
             child.add(b._program[indexB]);
           indexB += 1;
           break;
-        case 4: // insert random
+          
+        /*case 2:
+          child.add(generator.getNext());
+          continue;
+        case 3:
+          child.add(generator.getNext());
+          continue;*/
+        case 4:
+          child.add(generator.getNext());
+          child.add(generator.getNext());
+          continue;
+        case 8: // insert random
           child.add(generator.getNext());
           break;
         case 5: // skip
@@ -226,7 +237,7 @@ class Expression {
           case _opMin: stack.push('min(${stack.pop()}, ${stack.pop()})'); break;
           case _opMax: stack.push('max(${stack.pop()}, ${stack.pop()})'); break;
           case _opInput: stack.push('input[${stack.pop()}]'); break;
-          default: stack.push('${stack.pop()} /* ignored: $opcode */'); break;
+          default: stack.push('${stack.pop()}'); break;
         }
       } else {
         stack.push('$opcode');

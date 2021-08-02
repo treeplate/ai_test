@@ -8,14 +8,14 @@ void main() {
   }
   creatures.sort((Creature a, Creature b) => a.fitness.compareTo(b.fitness));
   int gens = 0;
-  while (bestFitness > 0) {
+  while (bestFitness > (creatures[0].data.countOutputs())) {
     if (creatures[0].fitness < bestFitness) {
       bestFitness = creatures[0].fitness;
       print("$gens:${creatures[0]}\n");
     }
     List<Creature> babies = [];
-    while (babies.length < 100) {
-      babies.add(creatures.first.crossover(creatures[1]));
+    while (babies.length < 500) {
+      babies.add(creatures[r.nextInt(creatures.length)].crossover(creatures[r.nextInt(creatures.length)]));
     }
     creatures = creatures + babies;
     for (Creature creature in babies) {
@@ -23,7 +23,8 @@ void main() {
     }
     creatures
         .sort((Creature a, Creature b) => a.fitness.compareTo(b.fitness));
-    creatures.length = 100;
+    creatures.length = 2;
     gens++;
   }
+  print("Success! ($gens:${creatures[0]})");
 }

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'center.dart';
+//import 'center.dart';
 import 'expression.dart';
 import 'point.dart';
 
@@ -26,13 +26,15 @@ class Creature {
   late double fitness;
 
   void calcFitness() {
-    fitness = 0;
+    /*
+    fitness = double.infinity;
     List<List<Point>> triangles = [];
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 100; i++) {
+      Point pointA = Point((r.nextDouble()*500)+500, (r.nextDouble()*500)+500);
       triangles.add([
-        Point(r.nextDouble()*1000, r.nextDouble()*1000),
-        Point(r.nextDouble()*1000, r.nextDouble()*1000),
-        Point(r.nextDouble()*1000, r.nextDouble()*1000)
+        pointA,
+        Point(pointA.x+1, pointA.y+1),
+        Point(pointA.x+2, pointA.y),
       ]);
     }
     for (List<Point> triangle in triangles) {
@@ -41,7 +43,19 @@ class Creature {
       Point evaluated = data.evaluate(inputs);
       double dx = goalOutput.x - evaluated.x;
       double dy = goalOutput.y - evaluated.y;
-      fitness = max(fitness, dx * dx + dy * dy + (data.countOutputs()*100));
+      fitness = min(fitness, dx * dx + dy * dy + (data.countOutputs()*100));
+    }
+    */
+    fitness = 0;
+    List<double> nums = [];
+    for (int i = 0; i < 100; i++) {
+      nums.add(r.nextDouble()*1000);
+    }
+    for (double n in nums) {
+      List<double> inputs = [n];
+      double goalOutput = n+100;
+      Point evaluated = data.evaluate(inputs);
+      fitness = max(fitness, (goalOutput - evaluated.x).abs()  + (data.countOutputs()));
     }
   }
 
