@@ -1,1 +1,1 @@
-python3 mousePos.py | dart main.dart | python3 moveMouse.py
+python3 mousePos.py | dart main.dart --e | python3 moveMouse.py

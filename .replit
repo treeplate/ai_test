@@ -1,0 +1,5 @@
+run = "bash main.bash"
+entrypoint = "main.sh"
+
+[agent]
+expertMode = true
